@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -n 4
+#BSUB -n 2
 #BSUB -q general
 #BSUB -G compute-crponce
 #BSUB -J 'simclr_train[1-2]'
@@ -23,4 +23,4 @@ export extra_param="$(echo "$param_list" | head -n $LSB_JOBINDEX | tail -1)"
 echo "$extra_param"
 
 cd ~/SimCLR/
-python main.py $extra_param --dataset STL10  --dataset_dir $SCRATCH1/Datasets  --workers 16  
+python main.py $extra_param --dataset STL10  --dataset_dir $SCRATCH1/Datasets  --workers 12  
