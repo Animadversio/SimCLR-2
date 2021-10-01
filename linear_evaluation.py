@@ -37,6 +37,7 @@ def inference(loader, simclr_model, device):
 
 
 def get_features(simclr_model, train_loader, test_loader, device):
+    """Turn features into a large numpy array, for regression. """
     train_X, train_y = inference(train_loader, simclr_model, device)
     test_X, test_y = inference(test_loader, simclr_model, device)
     return train_X, train_y, test_X, test_y
