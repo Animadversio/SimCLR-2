@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -n 2
+#BSUB -n 4
 #BSUB -q general
 #BSUB -G compute-crponce
 #BSUB -J 'simclr_train[1-2]'
@@ -15,12 +15,12 @@
 echo "$LSB_JOBINDEX"
 
 param_list=\
-'--resnet resnet18  --model_path $SCRATCH1/simclr_save/log --batch_size 256 --projection_dim 64 --optimizer Adam
---resnet resnet18  --model_path $SCRATCH1/simclr_save/log2 --batch_size 256 --projection_dim 128 --optimizer Adam
+'log  --resnet resnet18  --batch_size 256 --projection_dim  64 --optimizer Adam
+log2  --resnet resnet18  --batch_size 256 --projection_dim 128 --optimizer Adam
 '
 
 export extra_param="$(echo "$param_list" | head -n $LSB_JOBINDEX | tail -1)"
 echo "$extra_param"
 
 cd ~/SimCLR/
-python main.py $extra_param --dataset STL10  --dataset_dir $SCRATCH1/Datasets  --workers 12  
+python main.py --model_path $SCRATCH1/simclr_save/$extra_param --dataset STL10  --dataset_dir $SCRATCH1/Datasets  --workers 12  
